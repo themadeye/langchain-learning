@@ -1,5 +1,7 @@
 import os
 import streamlit as st
+import sys
+sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
 
 from dotenv import load_dotenv
 from langchain.llms import OpenAI
