@@ -29,19 +29,19 @@ def generate_response(uploaded_file, api_key, prompt_text):
       return qa.run(prompt_text)
 
 # Page title using Streamlit, by doing this, we get rid of the need of writting frontend code.
-st.set_page_config(page_title='🦜🔗 Ask the Doc App')
-st.title('🦜🔗 Ask the Doc App')
+st.set_page_config(page_title='🦜🔗 Ask me')
+st.title('🦜🔗 Ask me')
 
 # Next, add the neccessary front end widgets: File upload and text field components.
 uploaded_file = st.file_uploader('Upload an article', type='txt')
-prompt_text = st.text_input('Enter your question:', placeholder = 'Please provide a short summary.', disabled=not uploaded_file)
+prompt_text = st.text_input("What's on your mind?:", placeholder = '', disabled=not uploaded_file)
 
 # Form input and query
 result = []
 with st.form('myform', clear_on_submit=True):
       submitted = st.form_submit_button('Submit', disabled=not(uploaded_file and prompt_text))
       if submitted:
-            with st.spinner('Calculating...'):
+            with st.spinner('We are working hard on it...'):
                   response = generate_response(uploaded_file, api_key, prompt_text)
                   result.append(response)
       
