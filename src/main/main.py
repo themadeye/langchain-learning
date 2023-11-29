@@ -53,3 +53,13 @@ with st.form('myform', clear_on_submit=True):
       
       if len(result):
             st.info(response)
+
+# In progress:
+def extract_slack_thread():
+      SLACK_WORKSPACE_URL = "https://home-z0o2589.slack.com/archives/C067WGYSYTE"
+      LOCAL_ZIPFILE = ".src/slackexport/slackExport.zip"
+
+      loader = SlackDirectoryLoader(LOCAL_ZIPFILE, SLACK_WORKSPACE_URL)
+      docs = loader.load()
+
+      # Store the slack thread data and use RetrievalQA to analyze and generate reponse...
