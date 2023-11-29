@@ -1,9 +1,9 @@
-__import__('pysqlite3')
+# __import__('pysqlite3')
 import os
 import streamlit as st
 import sys
 
-sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
+# sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
 
 from dotenv import load_dotenv
 from langchain.llms import OpenAI
@@ -22,19 +22,19 @@ def generate_response(uploaded_file, api_key, prompt_text):
       # Split the loaded documents into chunks
       text_splitter = CharacterTextSplitter(chunk_size=1000, chunk_overlap=0)
       texts = text_splitter.create_documents(documents)
-      # Select embeddings
+
+      # Create a vectorstore for the document
       embeddings = OpenAIEmbeddings(openai_api_key=api_key)
-      # Create a vectorstore from documents
       db = Chroma.from_documents(texts, embeddings)
-      # Create retriever interface
+
+      # Create a RetrievalQA chain to analyze and generate the response
       retriever = db.as_retriever()
-      # Create QA chain
       qa = RetrievalQA.from_chain_type(llm=OpenAI(openai_api_key=api_key), chain_type='stuff', retriever=retriever)
       return qa.run(prompt_text)
 
 # Page title using Streamlit, by doing this, we get rid of the need of writting frontend code.
-st.set_page_config(page_title='🦜🔗 Ask me')
-st.title('🦜🔗 Ask me')
+st.set_page_config(page_title='🦜🔗 Q&A')
+st.title('🦜🔗 Q&A')
 
 # Next, add the neccessary front end widgets: File upload and text field components.
 uploaded_file = st.file_uploader('Upload an article', type='txt')

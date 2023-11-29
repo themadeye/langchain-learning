@@ -1,7 +1,6 @@
 chromadb
 langchain
 openai
-pysqlite3-binary
 python-dotenv
 streamlit
 tiktoken
