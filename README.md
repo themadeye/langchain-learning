@@ -19,7 +19,8 @@ When you run the command above, a directory called .venv will appear in the fold
 `pip3 install -r requirements.txt`
 
 5. To deactivate your current virtual environment, simply run:\
-`deactivate`
+`deactivate`\
+> :warning: **Don't deactivate the environment when you are developing or running the project**!
 
 **Try out the demo**
 
