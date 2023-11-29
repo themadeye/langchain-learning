@@ -11,6 +11,7 @@ from langchain.text_splitter import CharacterTextSplitter
 from langchain.embeddings import OpenAIEmbeddings
 from langchain.vectorstores import Chroma
 from langchain.chains import RetrievalQA
+from langchain.document_loaders import SlackDirectoryLoader
 
 load_dotenv() # read local .env file
 api_key = os.getenv('OPENAI_API_KEY')
@@ -28,6 +29,7 @@ def generate_response(uploaded_file, api_key, prompt_text):
       db = Chroma.from_documents(texts, embeddings)
 
       # Create a RetrievalQA chain to analyze and generate the response
+      # FIXME: It cannot analyze multiple documents, if we want to upload a second documents, we need to reboot the project. Suspecting that something might goes wrong with the vector stores. 
       retriever = db.as_retriever()
       qa = RetrievalQA.from_chain_type(llm=OpenAI(openai_api_key=api_key), chain_type='stuff', retriever=retriever)
       return qa.run(prompt_text)
