@@ -1,9 +1,9 @@
-# __import__('pysqlite3')
+__import__('pysqlite3')
 import os
 import streamlit as st
 import sys
 
-# sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
+sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
 
 from dotenv import load_dotenv
 from langchain.llms import OpenAI
@@ -54,12 +54,3 @@ with st.form('myform', clear_on_submit=True):
       if len(result):
             st.info(response)
 
-# In progress:
-def extract_slack_thread():
-      SLACK_WORKSPACE_URL = "https://home-z0o2589.slack.com/archives/C067WGYSYTE"
-      LOCAL_ZIPFILE = ".src/slackexport/slackExport.zip"
-
-      loader = SlackDirectoryLoader(LOCAL_ZIPFILE, SLACK_WORKSPACE_URL)
-      docs = loader.load()
-
-      # Store the slack thread data and use RetrievalQA to analyze and generate reponse...
